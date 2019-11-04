@@ -1,3 +1,9 @@
 spring:
   flyway:
     enabled: false # temporarily disable flyway until first migration
+
+iris:
+  demo:
+    settlement:
+      bankAccountId: bc093edb-9e00-41a4-be31-7b6db4fdcb00
+      accountingAccountId: fe6f6e10-ef51-4f17-8654-72d6b3d7c695
