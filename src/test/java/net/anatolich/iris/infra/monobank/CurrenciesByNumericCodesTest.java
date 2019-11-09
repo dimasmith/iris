@@ -1,23 +1,33 @@
 package net.anatolich.iris.infra.monobank;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import javax.money.CurrencyQueryBuilder;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 class CurrenciesByNumericCodesTest {
 
-    @Test
-    void findCurrencyByNumericCode() {
-        final int code = 980;
-        final CurrencyUnit currency = Monetary.getCurrency(CurrencyQueryBuilder.of().setNumericCodes(code).build());
+    @DisplayName("resolve currencies by codes")
+    @ParameterizedTest(name = "currency with code {0} is {1}")
+    @MethodSource("currencyCodes")
+    void resolveCurrencyByCode(int code, CurrencyUnit currency) {
+        final Optional<CurrencyUnit> foundCurrency = CurrenciesByNumericCodes.findCurrencyByCode(code);
 
-        final Optional<CurrencyUnit> parsedCurrency = CurrenciesByNumericCodes.findCurrencyByCode(code);
-
-        Assertions.assertThat(parsedCurrency)
+        Assertions.assertThat(foundCurrency)
                 .hasValue(currency);
+    }
+
+    private static Stream<Arguments> currencyCodes() {
+        return Stream.of(
+                Arguments.of(980, Monetary.getCurrency("UAH")),
+                Arguments.of(840, Monetary.getCurrency("USD")),
+                Arguments.of(978, Monetary.getCurrency("EUR"))
+        );
     }
 }

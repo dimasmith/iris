@@ -2,6 +2,7 @@ package net.anatolich.iris.infra.monobank;
 
 import net.anatolich.iris.domain.settlement.InvalidCurrencyCodeException;
 
+import javax.money.CurrencyQueryBuilder;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import java.util.Optional;
@@ -13,9 +14,8 @@ class CurrenciesByNumericCodes {
     }
 
     static Optional<CurrencyUnit> findCurrencyByCode(int code) {
-        return Monetary.getCurrencies().stream()
-                .filter(currency -> currency.getNumericCode() == code)
-                .findFirst();
+        final CurrencyUnit currency = Monetary.getCurrency(CurrencyQueryBuilder.of().setNumericCodes(code).build());
+        return Optional.ofNullable(currency);
     }
 
     static CurrencyUnit getCurrencyByCode(int currencyCode) {
