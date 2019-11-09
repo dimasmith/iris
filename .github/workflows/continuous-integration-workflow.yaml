@@ -14,5 +14,11 @@ jobs:
       - name: compile and test
         run: mvn -B clean verify --file pom.xml
       - name: static code analysis
-        run: mvn -B sonar:sonar --file pom.xml -Dsonar.projectKey=dimasmith_iris -Dsonar.organization=dimasmith -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
+        run: >
+          mvn -B sonar:sonar --file pom.xml
+          -Dsonar.projectKey=dimasmith_iris
+          -Dsonar.organization=dimasmith
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
