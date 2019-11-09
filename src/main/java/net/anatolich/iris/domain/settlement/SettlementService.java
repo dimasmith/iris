@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class SettlementService {
@@ -17,7 +19,7 @@ public class SettlementService {
         this.settingsRepository = settingsRepository;
     }
 
-    public void selectBankAccount(BankAccountId bankAccountId) {
+    public void selectBankAccount(BankAccount.Id bankAccountId) {
         final SettlementSettings settlementSettings = settingsRepository.getSettings();
         settlementSettings.setBankAccountId(bankAccountId);
         settingsRepository.save(settlementSettings);
@@ -27,6 +29,10 @@ public class SettlementService {
         final SettlementSettings settlementSettings = settingsRepository.getSettings();
         settlementSettings.setAccountingAccountId(accountingAccountId);
         settingsRepository.save(settlementSettings);
+    }
+
+    public List<BankAccount> listAvailableBankAccounts() {
+        return bank.getAccounts();
     }
 
     public BalanceComparison compareAccountingAndBankBalances() {

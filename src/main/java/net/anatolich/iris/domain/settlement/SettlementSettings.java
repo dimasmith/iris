@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SettlementSettings {
-    private BankAccountId bankAccountId;
+    private BankAccount.Id bankAccountId;
     private AccountingAccountId accountingAccountId;
 }

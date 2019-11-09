@@ -2,7 +2,7 @@ package net.anatolich.iris.infra.demo;
 
 import lombok.Data;
 import net.anatolich.iris.domain.settlement.AccountingAccountId;
-import net.anatolich.iris.domain.settlement.BankAccountId;
+import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.SettlementSettings;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,6 @@ public class DemoSettlementSettings {
     private String accountingAccountId;
 
     SettlementSettings toSettings() {
-        return new SettlementSettings(new BankAccountId(bankAccountId), new AccountingAccountId(accountingAccountId));
+        return new SettlementSettings(new BankAccount.Id(bankAccountId), new AccountingAccountId(accountingAccountId));
     }
 }

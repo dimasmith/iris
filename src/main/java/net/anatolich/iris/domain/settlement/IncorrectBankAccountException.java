@@ -1,14 +1,14 @@
 package net.anatolich.iris.domain.settlement;
 
 public class IncorrectBankAccountException extends RuntimeException {
-    private final BankAccountId bankAccountId;
+    private final BankAccount.Id bankAccountId;
 
-    public IncorrectBankAccountException(BankAccountId bankAccountId) {
-        super(String.format("incorrect bank account %s", bankAccountId.getId()));
+    public IncorrectBankAccountException(BankAccount.Id bankAccountId) {
+        super(String.format("incorrect bank account %s", bankAccountId.getValue()));
         this.bankAccountId = bankAccountId;
     }
 
-    public BankAccountId getBankAccountId() {
+    public BankAccount.Id getBankAccountId() {
         return bankAccountId;
     }
 }
