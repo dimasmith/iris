@@ -1,4 +1,9 @@
 {
+  "groups": [{
+    "name": "iris.monobank",
+    "type": "net.anatolich.iris.infra.monobank.MonobankProperties",
+    "sourceType": "net.anatolich.iris.infra.monobank.MonobankProperties"
+  }],
   "properties": [
     {
       "name": "iris.banking",
@@ -9,5 +14,11 @@
       "name": "iris.accounting",
       "type": "java.lang.String",
       "description": "Type of accounting system."
+    },
+    {
+      "name": "iris.monobank.token",
+      "type": "java.lang.String",
+      "description": "Access token for the Monobank API."
     }
-  ] }
+  ]
+}
