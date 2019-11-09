@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "iris.banking",
+      "type": "java.lang.String",
+      "description": "Type of banking system."
+    },
+    {
+      "name": "iris.accounting",
+      "type": "java.lang.String",
+      "description": "Type of accounting system."
+    }
+  ] }
