@@ -2,16 +2,22 @@ package net.anatolich.iris.infra.monobank;
 
 import lombok.Data;
 import net.anatolich.iris.domain.settlement.BankAccount;
-import net.anatolich.iris.domain.settlement.InvalidCurrencyCodeException;
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 class ClientInfo {
     private String name;
     private List<Account> accounts;
+
+    List<BankAccount> toBankAccounts() {
+        return getAccounts().stream()
+                .map(Account::toBankAccount)
+                .collect(Collectors.toList());
+    }
 
     @Data
     static class Account {
@@ -22,11 +28,11 @@ class ClientInfo {
         private long creditLimit;
 
         BankAccount toBankAccount() {
-            BankAccount.Id accountId = new BankAccount.Id(id);
-            CurrencyUnit currency = CurrenciesByNumericCodes.findCurrencyByCode(currencyCode)
-                    .orElseThrow(() -> new InvalidCurrencyCodeException(currencyCode));
-            Money openingBalance = Money.of(balance, currency);
+            final BankAccount.Id accountId = new BankAccount.Id(id);
+            final CurrencyUnit currency = CurrenciesByNumericCodes.getCurrencyByCode(currencyCode);
+            final Money openingBalance = Money.of(balance, currency).divide(100);
             return new BankAccount(accountId, openingBalance);
         }
+
     }
 }
