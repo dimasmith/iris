@@ -15,7 +15,7 @@ jobs:
         run: mvn -B clean verify --file pom.xml
       - name: static code analysis
         run: >
-          mvn -B sonar:sonar --file pom.xml
+          mvn -B verify sonar:sonar --file pom.xml
           -Dsonar.projectKey=dimasmith_iris
           -Dsonar.organization=dimasmith
           -Dsonar.host.url=https://sonarcloud.io
