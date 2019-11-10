@@ -2,8 +2,7 @@ package net.anatolich.iris.infra.homemoney;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Value;
+import lombok.*;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
 import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import net.anatolich.iris.domain.settlement.IncorrectAccountingAccountException;
@@ -17,6 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data
+@Builder
+@NoArgsConstructor @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 class BalanceListDto {
     @JsonProperty("Error")
@@ -88,6 +89,8 @@ class BalanceListDto {
     }
 
     @Data
+    @Builder
+    @NoArgsConstructor @AllArgsConstructor
     static class GroupInfo {
         private String id;
         private String name;
@@ -103,6 +106,8 @@ class BalanceListDto {
     }
 
     @Data
+    @Builder
+    @NoArgsConstructor @AllArgsConstructor
     static class AccountInfo {
         private String id;
         private String name;
@@ -137,6 +142,8 @@ class BalanceListDto {
     }
 
     @Data
+    @Builder
+    @NoArgsConstructor @AllArgsConstructor
     static class CurrencyInfo {
         private String id;
         private String shortname;
