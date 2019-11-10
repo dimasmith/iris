@@ -1,6 +1,9 @@
 package net.anatolich.iris.infra.monobank;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.anatolich.iris.domain.settlement.BankAccount;
 import org.javamoney.moneta.Money;
 
@@ -9,6 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@Builder
+@NoArgsConstructor @AllArgsConstructor
 class ClientInfo {
     private String name;
     private List<Account> accounts;
@@ -20,6 +25,8 @@ class ClientInfo {
     }
 
     @Data
+    @Builder
+    @NoArgsConstructor @AllArgsConstructor
     static class Account {
         private String id;
         private int currencyCode;
