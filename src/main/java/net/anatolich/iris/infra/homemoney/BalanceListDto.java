@@ -13,6 +13,7 @@ import javax.money.CurrencyUnit;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data
@@ -22,6 +23,13 @@ class BalanceListDto {
     private Error error;
     @JsonProperty("ListGroupInfo")
     private List<GroupInfo> groupInfo;
+
+    List<AccountingAccount> toAccounts(CurrencyResolver currencyResolver) {
+        return groupInfo.stream()
+                .flatMap(GroupInfo::accounts)
+                .flatMap(accountInfo -> accountInfo.toAccounts(currencyResolver).stream())
+                .collect(Collectors.toList());
+    }
 
     @Value
     static class AccountIdentifier {
@@ -39,6 +47,15 @@ class BalanceListDto {
             }
             this.accountId = idComponents[0];
             this.currencyId = idComponents[1];
+        }
+
+        AccountIdentifier(AccountInfo accountInfo, CurrencyInfo currencyInfo) {
+            this.accountId = accountInfo.getId();
+            this.currencyId = currencyInfo.getId();
+        }
+
+        private AccountingAccountId toAccountingId() {
+            return new AccountingAccountId(String.format("%s/%s", accountId, currencyId));
         }
 
         boolean matches(AccountInfo accountInfo) {
@@ -101,6 +118,22 @@ class BalanceListDto {
                     .filter(id::matches)
                     .findFirst();
         }
+
+        private List<AccountingAccount> toAccounts(CurrencyResolver resolver) {
+            return currencyInfo.stream()
+                    .map(info -> toAccount(info, resolver))
+                    .collect(Collectors.toList());
+
+        }
+
+        private AccountingAccount toAccount(CurrencyInfo currencyInfo, CurrencyResolver resolver) {
+            final AccountIdentifier accountIdentifier = new AccountIdentifier(this, currencyInfo);
+            return new AccountingAccount(
+                    accountIdentifier.toAccountingId(),
+                    Money.of(currencyInfo.getBalance(), currencyInfo.getCurrency(resolver))
+            );
+        }
+
     }
 
     @Data

@@ -1,8 +1,11 @@
 package net.anatolich.iris.infra.homemoney;
 
+import net.anatolich.iris.domain.settlement.AccountingAccount;
 import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import net.anatolich.iris.domain.settlement.AccountingSystem;
 import org.javamoney.moneta.Money;
+
+import java.util.List;
 
 public class Homemoney implements AccountingSystem {
     private final HomemoneyApiClient apiClient;
@@ -18,5 +21,10 @@ public class Homemoney implements AccountingSystem {
         return apiClient.getBalanceList()
                 .getAccount(accountingAccountId, currencyResolver)
                 .getBalance();
+    }
+
+    @Override
+    public List<AccountingAccount> getAccounts() {
+        return apiClient.getBalanceList().toAccounts(currencyResolver);
     }
 }
