@@ -3,7 +3,6 @@ package net.anatolich.iris.infra.rest;
 import lombok.Value;
 import lombok.extern.java.Log;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.javamoney.moneta.Money;
 import org.springframework.web.bind.annotation.GetMapping;
