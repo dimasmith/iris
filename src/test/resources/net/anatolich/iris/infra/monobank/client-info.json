@@ -1,0 +1,26 @@
+{
+  "name": "Average Joe",
+  "accounts": [
+    {
+      "id": "9d7b949b-5ebf-4969-b942-829a50fcc388",
+      "currencyCode": 980,
+      "cashbackType": "UAH",
+      "balance": 335,
+      "creditLimit": 259
+    },
+    {
+      "id": "a8ee58bf-e431-4774-97ba-a2ee9b205e90",
+      "currencyCode": 840,
+      "cashbackType": "None",
+      "balance": 0,
+      "creditLimit": 0
+    },
+    {
+      "id": "d6d53e5d-b9d1-46fd-afec-1adc7a045367",
+      "currencyCode": 978,
+      "cashbackType": "None",
+      "balance": 0,
+      "creditLimit": 0
+    }
+  ]
+}

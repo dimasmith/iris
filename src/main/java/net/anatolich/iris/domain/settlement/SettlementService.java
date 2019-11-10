@@ -25,7 +25,7 @@ public class SettlementService {
         settingsRepository.save(settlementSettings);
     }
 
-    public void selectAccountingAccount(AccountingAccountId accountingAccountId) {
+    public void selectAccountingAccount(AccountingAccount.Id accountingAccountId) {
         final SettlementSettings settlementSettings = settingsRepository.getSettings();
         settlementSettings.setAccountingAccountId(accountingAccountId);
         settingsRepository.save(settlementSettings);

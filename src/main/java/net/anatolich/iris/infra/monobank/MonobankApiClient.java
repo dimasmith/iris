@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -24,18 +25,20 @@ public class MonobankApiClient {
     @Cacheable(cacheNames = "monobank")
     public ClientInfo getClientInfo() {
         log.info("querying monobank api for client info");
-        final String resource = "/personal/client-info";
+        final String resource = "personal/client-info";
         return getResource(ClientInfo.class, resource);
     }
 
-    private <T> T getResource(Class<T> type, String resourceUri) {
-        final String url = API_PREFIX + resourceUri;
+    private <T> T getResource(Class<T> type, String path) {
+        final URI requestUri = UriComponentsBuilder.fromUriString(API_PREFIX)
+                .path(path)
+                .build().toUri();
 
         final AccessToken accessToken = properties.accessToken();
         final HttpHeaders headers = new HttpHeaders();
-        headers.add(accessToken.getHeader(), accessToken.getToken());
+        headers.add(AccessToken.HEADER, accessToken.getToken());
 
-        final RequestEntity<T> request = new RequestEntity<>(headers, HttpMethod.GET, URI.create(url));
+        final RequestEntity<T> request = new RequestEntity<>(headers, HttpMethod.GET, requestUri);
         final ResponseEntity<T> clientInfoResponse = restTemplate.exchange(request, type);
         return clientInfoResponse.getBody();
     }

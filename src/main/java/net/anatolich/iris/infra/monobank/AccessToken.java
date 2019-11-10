@@ -6,8 +6,8 @@ import lombok.ToString;
 @Getter
 @ToString
 class AccessToken {
+    static final String HEADER = "X-Token";
     private final String token;
-    private final String header = "X-Token";
 
     AccessToken(String token) {
         this.token = token;

@@ -1,7 +1,6 @@
 package net.anatolich.iris.settlement;
 
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import net.anatolich.iris.domain.settlement.AccountingSystem;
 import org.javamoney.moneta.Money;
 
@@ -11,10 +10,10 @@ import java.util.Map;
 
 class MockAccountingSystem implements AccountingSystem {
 
-    private final Map<AccountingAccountId, Money> balances = new HashMap<>();
+    private final Map<AccountingAccount.Id, Money> balances = new HashMap<>();
 
     @Override
-    public Money getAccountBalance(AccountingAccountId accountingAccountId) {
+    public Money getAccountBalance(AccountingAccount.Id accountingAccountId) {
         return balances.get(accountingAccountId);
     }
 
@@ -23,7 +22,7 @@ class MockAccountingSystem implements AccountingSystem {
         return List.of();
     }
 
-    void setBalance(AccountingAccountId accountingAccountId, Money balance) {
+    void setBalance(AccountingAccount.Id accountingAccountId, Money balance) {
         balances.put(accountingAccountId, balance);
     }
 }

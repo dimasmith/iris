@@ -1,14 +1,14 @@
 package net.anatolich.iris.domain.settlement;
 
 public class IncorrectAccountingAccountException extends RuntimeException {
-    private final AccountingAccountId accountingAccountId;
+    private final AccountingAccount.Id accountId;
 
-    public IncorrectAccountingAccountException(AccountingAccountId accountingAccountId) {
-        super(String.format("Incorrect accounting account %s", accountingAccountId.getId()));
-        this.accountingAccountId = accountingAccountId;
+    public IncorrectAccountingAccountException(AccountingAccount.Id accountId) {
+        super(String.format("Incorrect accounting account %s", accountId.getValue()));
+        this.accountId = accountId;
     }
 
-    public AccountingAccountId getAccountingAccountId() {
-        return accountingAccountId;
+    public AccountingAccount.Id getAccountId() {
+        return accountId;
     }
 }

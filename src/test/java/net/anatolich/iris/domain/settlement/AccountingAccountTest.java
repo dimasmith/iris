@@ -10,7 +10,7 @@ class AccountingAccountTest {
 
     @Test
     void currency() {
-        final AccountingAccount account = new AccountingAccount(AccountingAccountId.random(), Money.of(100, "UAH"));
+        final AccountingAccount account = new AccountingAccount(AccountingAccount.Id.random(), Money.of(100, "UAH"));
         final Currency currency = account.getCurrency();
 
         Assertions.assertThat(currency)

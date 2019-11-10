@@ -3,6 +3,7 @@ package net.anatolich.iris.infra.monobank;
 import lombok.extern.java.Log;
 import net.anatolich.iris.domain.settlement.Bank;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +40,7 @@ public class MonobankConfiguration {
     }
 
     @Bean
+    @ConfigurationProperties(prefix = "iris.monobank")
     public MonobankProperties monobankProperties() {
         return new MonobankProperties();
     }

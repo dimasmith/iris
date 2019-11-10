@@ -5,6 +5,7 @@ import lombok.Value;
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Value
@@ -23,7 +24,8 @@ public class BankAccount {
     }
 
     @Value
-    public static class Id {
+    public static class Id implements Serializable {
+        private static final long serialVersionUID = 1L;
         private final String value;
 
         public static Id random() {

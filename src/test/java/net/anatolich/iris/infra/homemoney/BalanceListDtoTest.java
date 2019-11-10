@@ -1,7 +1,6 @@
 package net.anatolich.iris.infra.homemoney;
 
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import net.anatolich.iris.domain.settlement.IncorrectAccountingAccountException;
 import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
@@ -24,7 +23,7 @@ class BalanceListDtoTest {
 
     @Test
     void findAndTransformAccount() {
-        final AccountingAccountId accountId = new AccountingAccountId("Qz9Vs02c/889740");
+        final AccountingAccount.Id accountId = new AccountingAccount.Id("Qz9Vs02c/889740");
         final AccountingAccount expectedAccount = new AccountingAccount(accountId, Money.of(200.00, "UAH"));
         final BalanceListDto balanceListDto = exampleBalanceList();
 
@@ -36,7 +35,7 @@ class BalanceListDtoTest {
 
     @Test
     void throwExceptionOnIncorrectAccountId() {
-        final AccountingAccountId accountId = new AccountingAccountId("notfound/889740");
+        final AccountingAccount.Id accountId = new AccountingAccount.Id("notfound/889740");
         final BalanceListDto balanceListDto = exampleBalanceList();
 
         Assertions.assertThatExceptionOfType(IncorrectAccountingAccountException.class)
@@ -45,7 +44,7 @@ class BalanceListDtoTest {
 
     @Test
     void throwExceptionOnIncorrectCurrencyId() {
-        final AccountingAccountId accountId = new AccountingAccountId("Qz9Vs02c/notfound");
+        final AccountingAccount.Id accountId = new AccountingAccount.Id("Qz9Vs02c/notfound");
         final BalanceListDto balanceListDto = exampleBalanceList();
 
         Assertions.assertThatExceptionOfType(IncorrectAccountingAccountException.class)
@@ -57,11 +56,11 @@ class BalanceListDtoTest {
         final BalanceListDto balanceListDto = exampleBalanceList();
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("correct account id must split account number and currency code via /")
-                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccountId("account-id.currency_id"), currencyResolver));
+                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccount.Id("account-id.currency_id"), currencyResolver));
 
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("correct account id must have only one /")
-                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccountId("account-id/currency_id/"), currencyResolver));
+                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccount.Id("account-id/currency_id/"), currencyResolver));
 
     }
 

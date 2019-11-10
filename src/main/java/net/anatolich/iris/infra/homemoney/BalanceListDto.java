@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import net.anatolich.iris.domain.settlement.IncorrectAccountingAccountException;
 import org.javamoney.moneta.Money;
 
@@ -37,8 +36,8 @@ class BalanceListDto {
         private final String accountId;
         private final String currencyId;
 
-        AccountIdentifier(AccountingAccountId id) {
-            final String idValue = id.getId();
+        AccountIdentifier(AccountingAccount.Id id) {
+            final String idValue = id.getValue();
             if (idValue.indexOf('/') != idValue.lastIndexOf('/')) {
                 throw new IllegalArgumentException("incorrect id format. an expected format is <accountId>/<currencyId>");
             }
@@ -55,8 +54,8 @@ class BalanceListDto {
             this.currencyId = currencyInfo.getId();
         }
 
-        private AccountingAccountId toAccountingId() {
-            return new AccountingAccountId(String.format("%s/%s", accountId, currencyId));
+        private AccountingAccount.Id toAccountingId() {
+            return new AccountingAccount.Id(String.format("%s/%s", accountId, currencyId));
         }
 
         boolean matches(AccountInfo accountInfo) {
@@ -68,7 +67,7 @@ class BalanceListDto {
         }
     }
 
-    AccountingAccount getAccount(AccountingAccountId accountId, CurrencyResolver currencyResolver) {
+    AccountingAccount getAccount(AccountingAccount.Id accountId, CurrencyResolver currencyResolver) {
         final AccountIdentifier id = new AccountIdentifier(accountId);
 
         final AccountInfo foundAccountInfo = findAccountInfo(id)

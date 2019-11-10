@@ -1,7 +1,6 @@
 package net.anatolich.iris.infra.homemoney;
 
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.AccountingAccountId;
 import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,9 +59,9 @@ class HomemoneyTest {
 
         Assertions.assertThat(accounts)
                 .containsExactlyInAnyOrder(
-                        new AccountingAccount(new AccountingAccountId("savings-account/970"), Money.of(100, "UAH")),
-                        new AccountingAccount(new AccountingAccountId("savings-account/980"), Money.of(200, "USD")),
-                        new AccountingAccount(new AccountingAccountId("deposit-account/970"), Money.of(1000, "UAH"))
+                        new AccountingAccount(new AccountingAccount.Id("savings-account/970"), Money.of(100, "UAH")),
+                        new AccountingAccount(new AccountingAccount.Id("savings-account/980"), Money.of(200, "USD")),
+                        new AccountingAccount(new AccountingAccount.Id("deposit-account/970"), Money.of(1000, "UAH"))
                 );
     }
 
@@ -86,7 +85,7 @@ class HomemoneyTest {
                 .build();
         Mockito.when(apiClient.getBalanceList()).thenReturn(balanceList);
 
-        final Money balance = homemoney.getAccountBalance(new AccountingAccountId("savings-account/970"));
+        final Money balance = homemoney.getAccountBalance(new AccountingAccount.Id("savings-account/970"));
 
         Assertions.assertThat(balance)
                 .isEqualTo(Money.of(100, "UAH"));

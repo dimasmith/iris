@@ -1,10 +1,12 @@
 package net.anatolich.iris.infra.monobank;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.NoArgsConstructor;
 
-@ConfigurationProperties(prefix = "iris.monobank")
 @Data
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class MonobankProperties {
     private String token;
 

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SettlementSettings {
     private BankAccount.Id bankAccountId;
-    private AccountingAccountId accountingAccountId;
+    private AccountingAccount.Id accountingAccountId;
 }

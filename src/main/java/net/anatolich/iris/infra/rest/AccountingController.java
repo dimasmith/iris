@@ -40,7 +40,7 @@ public class AccountingController {
 
         static AccountDto fromAccount(AccountingAccount account) {
             return new AccountDto(
-                    account.getId().getId(),
+                    account.getId().getValue(),
                     account.getBalance(),
                     Currency.getInstance(account.getCurrency().getCurrencyCode())
             );
