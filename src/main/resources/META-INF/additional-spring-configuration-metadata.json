@@ -3,7 +3,13 @@
     "name": "iris.monobank",
     "type": "net.anatolich.iris.infra.monobank.MonobankProperties",
     "sourceType": "net.anatolich.iris.infra.monobank.MonobankProperties"
-  }],
+  },
+    {
+      "name": "iris.homemoney",
+      "type": "net.anatolich.iris.infra.homemoney.HomemoneyProperties",
+      "sourceType": "net.anatolich.iris.infra.homemoney.HomemoneyProperties"
+    }
+  ],
   "properties": [
     {
       "name": "iris.banking",
@@ -19,6 +25,17 @@
       "name": "iris.monobank.token",
       "type": "java.lang.String",
       "description": "Access token for the Monobank API."
+    },
+    {
+      "name": "iris.homemoney.token",
+      "type": "java.lang.String",
+      "description": "Access token for the Homemoney API."
+    },
+    {
+      "name": "iris.homemoney.currencies",
+      "type": "java.util.Map<java.lang.String, java.lang.String>",
+      "description": "Map of Homemoney account currency IDs to ISO currency codes."
     }
+
   ]
 }
