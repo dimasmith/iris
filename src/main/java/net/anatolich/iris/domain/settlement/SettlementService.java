@@ -35,6 +35,10 @@ public class SettlementService {
         return bank.getAccounts();
     }
 
+    public List<AccountingAccount> listAvailableAccountingAccounts() {
+        return accounting.getAccounts();
+    }
+
     public BalanceComparison compareAccountingAndBankBalances() {
         final SettlementSettings settings = settingsRepository.getSettings();
         log.info("checking settlement of {}", settings);
@@ -42,5 +46,4 @@ public class SettlementService {
         final Money accountingBalance = accounting.getAccountBalance(settings.getAccountingAccountId());
         return new BalanceComparison(bankBalance, accountingBalance);
     }
-
 }
