@@ -4,14 +4,14 @@ import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 
-class BalanceComparisonTest {
+class SettlementCheckTest {
 
     @Test
     void balanceSettledWhenAmountsEqual() {
         Money bankingBalance = Money.of(1000, "UAH");
         Money accountingBalance = Money.of(1000, "UAH");
 
-        BalanceComparison comparison = new BalanceComparison(bankingBalance, accountingBalance);
+        SettlementCheck comparison = new SettlementCheck(bankingBalance, accountingBalance);
 
         Assertions.assertThat(comparison.isSettled())
                 .as("comparison must be settled for equal amounts")
@@ -23,7 +23,7 @@ class BalanceComparisonTest {
         Money bankingBalance = Money.of(1000, "UAH");
         Money accountingBalance = Money.of(1000, "UAH");
 
-        BalanceComparison comparison = new BalanceComparison(bankingBalance, accountingBalance);
+        SettlementCheck comparison = new SettlementCheck(bankingBalance, accountingBalance);
 
         Assertions.assertThat(comparison.getBalance())
                 .as("balance of settled accounts must be 0")
@@ -35,7 +35,7 @@ class BalanceComparisonTest {
         Money bankingBalance = Money.of(902, "UAH");
         Money accountingBalance = Money.of(860, "UAH");
 
-        BalanceComparison comparison = new BalanceComparison(bankingBalance, accountingBalance);
+        SettlementCheck comparison = new SettlementCheck(bankingBalance, accountingBalance);
 
         Assertions.assertThat(comparison.isSettled())
                 .as("comparison must be not settled for different amounts")
@@ -47,7 +47,7 @@ class BalanceComparisonTest {
         Money bankingBalance = Money.of(902, "UAH");
         Money accountingBalance = Money.of(860, "UAH");
 
-        BalanceComparison comparison = new BalanceComparison(bankingBalance, accountingBalance);
+        SettlementCheck comparison = new SettlementCheck(bankingBalance, accountingBalance);
 
         Assertions.assertThat(comparison.getBalance())
                 .as("settlement balance of accounts must be non-zero")
@@ -59,7 +59,7 @@ class BalanceComparisonTest {
         Money bankingBalance = Money.of(130, "UAH");
         Money accountingBalance = Money.of(330, "UAH");
 
-        BalanceComparison comparison = new BalanceComparison(bankingBalance, accountingBalance);
+        SettlementCheck comparison = new SettlementCheck(bankingBalance, accountingBalance);
 
         Assertions.assertThat(comparison.getBalance())
                 .as("settlement balance of accounts must be non-zero")

@@ -1,7 +1,7 @@
 package net.anatolich.iris.demo;
 
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.BalanceComparison;
+import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.assertj.core.api.Assertions;
@@ -23,7 +23,7 @@ class SettlementDemoTest {
         final BankAccount bankAccount = settlements.listAvailableBankAccounts().get(0);
         settlements.selectBankAccount(bankAccount.getId());
 
-        final BalanceComparison comparison = settlements.compareAccountingAndBankBalances();
+        final SettlementCheck comparison = settlements.compareAccountingAndBankBalances();
 
         Assertions.assertThat(comparison.getAccountingBalance())
                 .isEqualTo(accountingAccount.getBalance());

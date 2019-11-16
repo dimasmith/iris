@@ -2,6 +2,7 @@ package net.anatolich.iris.domain.settlement;
 
 import lombok.extern.slf4j.Slf4j;
 import org.javamoney.moneta.Money;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +13,14 @@ public class SettlementService {
     private final Bank bank;
     private final AccountingSystem accounting;
     private final SettlementProperties properties;
+    private final ApplicationEventPublisher publisher;
 
-    public SettlementService(Bank bank, AccountingSystem accounting, SettlementProperties properties) {
+    public SettlementService(Bank bank, AccountingSystem accounting, SettlementProperties properties,
+        ApplicationEventPublisher publisher) {
         this.bank = bank;
         this.accounting = accounting;
         this.properties = properties;
+        this.publisher = publisher;
     }
 
     public void selectBankAccount(BankAccount.Id bankAccountId) {
@@ -35,9 +39,11 @@ public class SettlementService {
         return accounting.getAccounts();
     }
 
-    public BalanceComparison compareAccountingAndBankBalances() {
+    public SettlementCheck compareAccountingAndBankBalances() {
         final Money bankBalance = bank.getAccountBalance(properties.bankingAccountId());
         final Money accountingBalance = accounting.getAccountBalance(properties.accountingAccountId());
-        return new BalanceComparison(bankBalance, accountingBalance);
+        final SettlementCheck settlementCheck = new SettlementCheck(bankBalance, accountingBalance);
+        publisher.publishEvent(settlementCheck);
+        return settlementCheck;
     }
 }
