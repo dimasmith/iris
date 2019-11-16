@@ -7,11 +7,11 @@ import org.javamoney.moneta.Money;
 
 import java.util.List;
 
-public class DemoAccountingSystem implements AccountingSystem {
+public class DemoAccounting implements AccountingSystem {
 
     private final List<AccountingAccount> accounts;
 
-    DemoAccountingSystem() {
+    DemoAccounting() {
         accounts = List.of(
                 new AccountingAccount(new AccountingAccount.Id("fdbf828b-1f64-4de5-8070-e074c48141f2"), Money.of(1000, "UAH")),
                 new AccountingAccount(new AccountingAccount.Id("e0b2e94e-558a-48ae-8f51-a89a7ca322b7"), Money.of(800, "UAH")),

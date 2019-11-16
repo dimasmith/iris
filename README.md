@@ -16,6 +16,13 @@ I'm developing it for personal needs, so it is rather simple. The service does n
 * Manage Periodic Payments - manage a list of subscriptions and periodic payments. It helps to plan a monthly budget.
 * Calculate Taxes - prepare numbers for a tax declaration for the last quarter.
 
+## Settings
+
+| Property | Description | Values |
+| -------- | ----------- | ------ |
+| `iris.banking` | type of banking systems | `demo`, `monobank` |
+| `iris.accounting` | type of accounting systems | `demo`, `homemoney` |
+
 ## Integrations
 ### Monobank
 It is possible to retrieve banking accounts and balances from the [Monobank](https://monobank.ua).

@@ -3,6 +3,7 @@ package net.anatolich.iris.settlement;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
 import net.anatolich.iris.domain.settlement.BalanceComparison;
 import net.anatolich.iris.domain.settlement.BankAccount;
+import net.anatolich.iris.domain.settlement.SettlementProperties;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
@@ -18,7 +19,7 @@ class CompareAccountingAndBankBalancesTest {
     void compareEqualBalances() {
         MockBank bank = new MockBank();
         MockAccountingSystem accounting = new MockAccountingSystem();
-        SettlementService settlement = new SettlementService(bank, accounting, new MockSettlementSettingsRepository());
+        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties());
         BankAccount.Id bankAccountId = BankAccount.Id.random();
         Money amount = random();
         bank.setAccountBalance(bankAccountId, amount);
@@ -47,7 +48,7 @@ class CompareAccountingAndBankBalancesTest {
         Money accountingAmount = bankAmount.add(random());
         MockBank bank = new MockBank();
         MockAccountingSystem accounting = new MockAccountingSystem();
-        SettlementService settlement = new SettlementService(bank, accounting, new MockSettlementSettingsRepository());
+        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties());
         BankAccount.Id bankAccountId = BankAccount.Id.random();
         bank.setAccountBalance(bankAccountId, bankAmount);
         settlement.selectBankAccount(bankAccountId);

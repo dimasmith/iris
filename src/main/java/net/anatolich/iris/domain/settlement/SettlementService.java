@@ -11,24 +11,20 @@ import java.util.List;
 public class SettlementService {
     private final Bank bank;
     private final AccountingSystem accounting;
-    private final SettlementSettingsRepository settingsRepository;
+    private final SettlementProperties properties;
 
-    public SettlementService(Bank bank, AccountingSystem accounting, SettlementSettingsRepository settingsRepository) {
+    public SettlementService(Bank bank, AccountingSystem accounting, SettlementProperties properties) {
         this.bank = bank;
         this.accounting = accounting;
-        this.settingsRepository = settingsRepository;
+        this.properties = properties;
     }
 
     public void selectBankAccount(BankAccount.Id bankAccountId) {
-        final SettlementSettings settlementSettings = settingsRepository.getSettings();
-        settlementSettings.setBankAccountId(bankAccountId);
-        settingsRepository.save(settlementSettings);
+        properties.setBankAccount(bankAccountId);
     }
 
     public void selectAccountingAccount(AccountingAccount.Id accountingAccountId) {
-        final SettlementSettings settlementSettings = settingsRepository.getSettings();
-        settlementSettings.setAccountingAccountId(accountingAccountId);
-        settingsRepository.save(settlementSettings);
+        properties.setAccountingAccount(accountingAccountId);
     }
 
     public List<BankAccount> listAvailableBankAccounts() {
@@ -40,10 +36,8 @@ public class SettlementService {
     }
 
     public BalanceComparison compareAccountingAndBankBalances() {
-        final SettlementSettings settings = settingsRepository.getSettings();
-        log.info("checking settlement of {}", settings);
-        final Money bankBalance = bank.getAccountBalance(settings.getBankAccountId());
-        final Money accountingBalance = accounting.getAccountBalance(settings.getAccountingAccountId());
+        final Money bankBalance = bank.getAccountBalance(properties.bankingAccountId());
+        final Money accountingBalance = accounting.getAccountBalance(properties.accountingAccountId());
         return new BalanceComparison(bankBalance, accountingBalance);
     }
 }

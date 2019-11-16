@@ -1,13 +1,19 @@
 {
-  "groups": [{
-    "name": "iris.monobank",
-    "type": "net.anatolich.iris.infra.monobank.MonobankProperties",
-    "sourceType": "net.anatolich.iris.infra.monobank.MonobankProperties"
-  },
+  "groups": [
+    {
+      "name": "iris.monobank",
+      "type": "net.anatolich.iris.infra.monobank.MonobankProperties",
+      "sourceType": "net.anatolich.iris.infra.monobank.MonobankProperties"
+    },
     {
       "name": "iris.homemoney",
       "type": "net.anatolich.iris.infra.homemoney.HomemoneyProperties",
       "sourceType": "net.anatolich.iris.infra.homemoney.HomemoneyProperties"
+    },
+    {
+      "name": "iris.settlement",
+      "type": "net.anatolich.iris.domain.settlement.SettlementProperties",
+      "sourceType": "net.anatolich.iris.domain.settlement.SettlementProperties"
     }
   ],
   "properties": [
@@ -35,7 +41,16 @@
       "name": "iris.homemoney.currencies",
       "type": "java.util.Map<java.lang.String, java.lang.String>",
       "description": "Map of Homemoney account currency IDs to ISO currency codes."
+    },
+    {
+      "name": "iris.settlement.bankAccountId",
+      "type": "java.lang.String",
+      "description": "ID of banking account used in settlement."
+    },
+    {
+      "name": "iris.settlement.accountingAccountId",
+      "type": "java.lang.String",
+      "description": "ID of accounting system account used in settlement."
     }
-
   ]
 }
