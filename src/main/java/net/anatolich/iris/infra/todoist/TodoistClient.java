@@ -32,7 +32,7 @@ class TodoistClient {
         final RequestEntity<RescheduleTaskPayload> request = new RequestEntity<>(
             new RescheduleTaskPayload(newDate),
             authorizationHeaders,
-            HttpMethod.PUT,
+            HttpMethod.POST,
             updateTaskUri);
         restTemplate.exchange(request, Void.class);
     }

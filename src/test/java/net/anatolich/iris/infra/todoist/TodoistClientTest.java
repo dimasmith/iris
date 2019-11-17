@@ -39,7 +39,7 @@ class TodoistClientTest {
         final String taskId = "12345";
         final LocalDate dueDate = LocalDate.of(2019, Month.OCTOBER, 27);
         mockServer.expect(requestTo("https://api.todoist.com/rest/v1/tasks/12345"))
-                .andExpect(method(HttpMethod.PUT))
+                .andExpect(method(HttpMethod.POST))
                 .andExpect(jsonPath("due_date", equalTo("2019-10-27")))
                 .andExpect(header(HttpHeaders.AUTHORIZATION, equalTo("Bearer " + properties.getToken())))
                 .andRespond(withStatus(HttpStatus.NO_CONTENT));
