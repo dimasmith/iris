@@ -1,16 +1,14 @@
 package net.anatolich.iris.infra.scheduler;
 
-import static org.quartz.CronScheduleBuilder.cronSchedule;
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
-
 import net.anatolich.iris.domain.settlement.SettlementService;
-import org.quartz.CronExpression;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 @Configuration
 public class ScheduledTasksConfiguration {
