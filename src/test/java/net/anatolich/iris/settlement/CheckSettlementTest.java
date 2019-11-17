@@ -1,25 +1,39 @@
 package net.anatolich.iris.settlement;
 
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
+
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.BalanceComparison;
+import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.SettlementProperties;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.money.Monetary;
 import java.util.Random;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
+@ExtendWith(MockitoExtension.class)
+@DisplayName("check settlement")
+class CheckSettlementTest {
 
-class CompareAccountingAndBankBalancesTest {
+    @Mock
+    private ApplicationEventPublisher publisher;
 
+    @DisplayName("for equal balances")
     @Test
     void compareEqualBalances() {
         MockBank bank = new MockBank();
         MockAccountingSystem accounting = new MockAccountingSystem();
-        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties());
+        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties(), publisher);
         BankAccount.Id bankAccountId = BankAccount.Id.random();
         Money amount = random();
         bank.setAccountBalance(bankAccountId, amount);
@@ -29,26 +43,29 @@ class CompareAccountingAndBankBalancesTest {
         accounting.setBalance(accountingAccountId, amount);
         settlement.selectAccountingAccount(accountingAccountId);
 
-        BalanceComparison balanceComparison = settlement.compareAccountingAndBankBalances();
+        SettlementCheck settlementCheck = settlement.compareAccountingAndBankBalances();
 
-        Assertions.assertThat(balanceComparison.isSettled())
+        Assertions.assertThat(settlementCheck.isSettled())
                 .as("balance comparison for the same amounts must be settled")
                 .isTrue();
-        Assertions.assertThat(balanceComparison.getBankingBalance())
+        Assertions.assertThat(settlementCheck.getBankingBalance())
                 .as("incorrect balance of the bank account")
                 .isEqualTo(amount);
-        Assertions.assertThat(balanceComparison.getAccountingBalance())
+        Assertions.assertThat(settlementCheck.getAccountingBalance())
                 .as("incorrect balance of the accounting accounts")
                 .isEqualTo(amount);
+
+        verify(publisher, only()).publishEvent(settlementCheck);
     }
 
+    @DisplayName("for unsettled balances")
     @Test
     void compareDifferentBalances() {
         Money bankAmount = random();
         Money accountingAmount = bankAmount.add(random());
         MockBank bank = new MockBank();
         MockAccountingSystem accounting = new MockAccountingSystem();
-        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties());
+        SettlementService settlement = new SettlementService(bank, accounting, new SettlementProperties(), publisher);
         BankAccount.Id bankAccountId = BankAccount.Id.random();
         bank.setAccountBalance(bankAccountId, bankAmount);
         settlement.selectBankAccount(bankAccountId);
@@ -57,17 +74,19 @@ class CompareAccountingAndBankBalancesTest {
         accounting.setBalance(accountingAccountId, accountingAmount);
         settlement.selectAccountingAccount(accountingAccountId);
 
-        BalanceComparison balanceComparison = settlement.compareAccountingAndBankBalances();
+        SettlementCheck settlementCheck = settlement.compareAccountingAndBankBalances();
 
-        Assertions.assertThat(balanceComparison.isSettled())
+        Assertions.assertThat(settlementCheck.isSettled())
                 .as("balances not equal")
                 .isFalse();
-        Assertions.assertThat(balanceComparison.getBankingBalance())
+        Assertions.assertThat(settlementCheck.getBankingBalance())
                 .as("incorrect balance of the bank account")
                 .isEqualTo(bankAmount);
-        Assertions.assertThat(balanceComparison.getAccountingBalance())
+        Assertions.assertThat(settlementCheck.getAccountingBalance())
                 .as("incorrect balance of the accounting accounts")
                 .isEqualTo(accountingAmount);
+
+        verify(publisher, only()).publishEvent(settlementCheck);
     }
 
     private Money uah(double amount) {

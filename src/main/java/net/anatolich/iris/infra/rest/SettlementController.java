@@ -1,7 +1,7 @@
 package net.anatolich.iris.infra.rest;
 
 import lombok.extern.slf4j.Slf4j;
-import net.anatolich.iris.domain.settlement.BalanceComparison;
+import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class SettlementController {
     }
 
     @GetMapping
-    public BalanceComparison settlementForAccounts() {
+    public SettlementCheck settlementForAccounts() {
         log.info("retrieving settlement");
         return settlementService.compareAccountingAndBankBalances();
     }

@@ -51,3 +51,24 @@ This ID is not consistent between users, so each user has their own mapping.
 There's also no documented endpoint to get all the currencies for the user.
 
 Note that Iris caches requests to Homemoney API for 5 minutes. 
+
+### Todoist
+
+Iris can report a balance mismatch by reopening a dedicated task in the [Todoist](https://todoist.com).
+
+Enable a Todoist integration by setting `iris.todoist.enabled=true`. 
+You need an access token to integrate. 
+Obtain one in the integrations section of the Todoist settings screen.
+The todoist integration works with a single predefined task. 
+When balance settled, Iris completes the task. 
+When settlement check fails, Iris reopens the task and sets its due date on today.
+Create a task, open its details and supply the task id to the Todoist integration settings.
+An example settings are:
+
+```yaml
+iris:
+  todoist:
+    enabled: true
+    token: 9cffe052-09f2-47ee-9361-dd640fe96a89
+    task-id: 123456
+``` 
