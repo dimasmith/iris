@@ -1,20 +1,20 @@
 package net.anatolich.iris.infra.todoist;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 class TodoistClient {
 
-    private static final String API_HOST = "https://api.todoist.com/rest/v1";
+    private static final String API_HOST = "https://api.todoist.com/rest/v1/";
     private final RestTemplate restTemplate;
     private HttpHeaders authorizationHeaders;
 
@@ -70,7 +70,7 @@ class TodoistClient {
 
         @JsonProperty(value = "due_date")
         public String getDueDate() {
-            return dueDate.format(DateTimeFormatter.BASIC_ISO_DATE);
+            return dueDate.format(DateTimeFormatter.ISO_DATE);
         }
     }
 }
