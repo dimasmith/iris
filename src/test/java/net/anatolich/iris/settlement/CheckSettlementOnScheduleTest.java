@@ -3,30 +3,32 @@ package net.anatolich.iris.settlement;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 
+import java.util.Random;
+import javax.money.Monetary;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.BankAccount;
+import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.SettlementProperties;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.assertj.core.api.Assertions;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import javax.money.Monetary;
-import java.util.Random;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("check settlement")
-class CheckSettlementTest {
+@DisplayName("check settlement on schedule")
+class CheckSettlementOnScheduleTest {
 
     @Mock
     private ApplicationEventPublisher publisher;
+    @Captor
+    private ArgumentCaptor<SettlementCheck> checkCaptor;
 
     @DisplayName("for equal balances")
     @Test
@@ -43,7 +45,9 @@ class CheckSettlementTest {
         accounting.setBalance(accountingAccountId, amount);
         settlement.selectAccountingAccount(accountingAccountId);
 
-        SettlementCheck settlementCheck = settlement.compareAccountingAndBankBalances();
+        settlement.checkSettlementOnSchedule();
+        verify(publisher, only()).publishEvent(checkCaptor.capture());
+        SettlementCheck settlementCheck = checkCaptor.getValue();
 
         Assertions.assertThat(settlementCheck.isSettled())
                 .as("balance comparison for the same amounts must be settled")
@@ -54,8 +58,6 @@ class CheckSettlementTest {
         Assertions.assertThat(settlementCheck.getAccountingBalance())
                 .as("incorrect balance of the accounting accounts")
                 .isEqualTo(amount);
-
-        verify(publisher, only()).publishEvent(settlementCheck);
     }
 
     @DisplayName("for unsettled balances")
@@ -74,7 +76,9 @@ class CheckSettlementTest {
         accounting.setBalance(accountingAccountId, accountingAmount);
         settlement.selectAccountingAccount(accountingAccountId);
 
-        SettlementCheck settlementCheck = settlement.compareAccountingAndBankBalances();
+        settlement.checkSettlementOnSchedule();
+        verify(publisher, only()).publishEvent(checkCaptor.capture());
+        SettlementCheck settlementCheck = checkCaptor.getValue();
 
         Assertions.assertThat(settlementCheck.isSettled())
                 .as("balances not equal")
@@ -85,8 +89,6 @@ class CheckSettlementTest {
         Assertions.assertThat(settlementCheck.getAccountingBalance())
                 .as("incorrect balance of the accounting accounts")
                 .isEqualTo(accountingAmount);
-
-        verify(publisher, only()).publishEvent(settlementCheck);
     }
 
     private Money uah(double amount) {

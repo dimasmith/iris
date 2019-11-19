@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 @Slf4j
 public class CheckSettlementJob implements Job {
@@ -16,8 +15,8 @@ public class CheckSettlementJob implements Job {
     }
 
     @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) {
         log.info("invoking settlements check");
-        settlements.compareAccountingAndBankBalances();
+        settlements.checkSettlementOnSchedule();
     }
 }

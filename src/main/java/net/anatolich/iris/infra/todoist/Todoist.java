@@ -3,6 +3,7 @@ package net.anatolich.iris.infra.todoist;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;
+import org.javamoney.moneta.Money;
 
 public class Todoist {
 
@@ -16,9 +17,10 @@ public class Todoist {
         this.clock = Clock.systemDefaultZone();
     }
 
-    public void reopenSettleTask() {
+    public void reopenSettleTask(Money balance) {
         client.reopenTask(properties.getTaskId());
-        client.updateTask(LocalDate.now(clock), properties.getTaskId());
+        final String taskContent = String.format("Settle my balance. Difference is %s", balance.toString());
+        client.updateTask(taskContent, LocalDate.now(clock), properties.getTaskId());
     }
 
     public void competeSettleTask() {

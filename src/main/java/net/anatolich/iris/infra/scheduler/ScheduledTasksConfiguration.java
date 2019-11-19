@@ -33,7 +33,7 @@ public class ScheduledTasksConfiguration {
             .forJob(checkSettlementJobDetail())
             .withIdentity("check-settlement-trigger", "settlement")
             .withDescription("Trigger for settlements check")
-            .withSchedule(cronSchedule("0 0 22 * * ?"))
+            .withSchedule(cronSchedule("0 0 * * * ?"))
             .build();
     }
 }

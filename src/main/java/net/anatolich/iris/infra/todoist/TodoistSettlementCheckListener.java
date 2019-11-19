@@ -1,6 +1,7 @@
 package net.anatolich.iris.infra.todoist;
 
 import net.anatolich.iris.domain.settlement.SettlementCheck;
+import org.javamoney.moneta.Money;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 
@@ -21,6 +22,6 @@ class TodoistSettlementCheckListener {
     @EventListener(classes = SettlementCheck.class, condition = "!#check.settled")
     @Async
     public void onUnsettledBalances(SettlementCheck check) {
-        todoist.reopenSettleTask();
+        todoist.reopenSettleTask(Money.of(42, "UAH"));
     }
 }

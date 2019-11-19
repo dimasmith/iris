@@ -42,8 +42,17 @@ public class SettlementService {
     public SettlementCheck compareAccountingAndBankBalances() {
         final Money bankBalance = bank.getAccountBalance(properties.bankingAccountId());
         final Money accountingBalance = accounting.getAccountBalance(properties.accountingAccountId());
+        return new SettlementCheck(bankBalance, accountingBalance);
+    }
+
+    /**
+     * Check the settlement and fires an application events with results of a check.
+     * This method supposed to be called by the scheduler.
+     */
+    public void checkSettlementOnSchedule() {
+        final Money bankBalance = bank.getAccountBalance(properties.bankingAccountId());
+        final Money accountingBalance = accounting.getAccountBalance(properties.accountingAccountId());
         final SettlementCheck settlementCheck = new SettlementCheck(bankBalance, accountingBalance);
         publisher.publishEvent(settlementCheck);
-        return settlementCheck;
     }
 }

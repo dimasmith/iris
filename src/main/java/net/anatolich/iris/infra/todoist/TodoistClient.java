@@ -24,13 +24,13 @@ class TodoistClient {
         authorizationHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + properties.getToken());
     }
 
-    void updateTask(LocalDate newDate, String taskId) {
+    void updateTask(String message, LocalDate newDate, String taskId) {
         final URI updateTaskUri = UriComponentsBuilder.fromUriString(API_HOST)
             .path("tasks/{taskId}")
             .buildAndExpand(Collections.singletonMap("taskId", taskId))
             .toUri();
         final RequestEntity<RescheduleTaskPayload> request = new RequestEntity<>(
-            new RescheduleTaskPayload(newDate),
+            new RescheduleTaskPayload(newDate, message),
             authorizationHeaders,
             HttpMethod.POST,
             updateTaskUri);
@@ -63,14 +63,20 @@ class TodoistClient {
 
     static class RescheduleTaskPayload {
         private final LocalDate dueDate;
+        private final String content;
 
-        RescheduleTaskPayload(LocalDate dueDate) {
+        RescheduleTaskPayload(LocalDate dueDate, String content) {
             this.dueDate = dueDate;
+            this.content = content;
         }
 
         @JsonProperty(value = "due_date")
         public String getDueDate() {
             return dueDate.format(DateTimeFormatter.ISO_DATE);
+        }
+
+        public String getContent() {
+            return content;
         }
     }
 }
