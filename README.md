@@ -4,15 +4,15 @@ Iris
 ![](https://github.com/dimasmith/iris/workflows/CI/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dimasmith_iris&metric=alert_status)](https://sonarcloud.io/dashboard?id=dimasmith_iris)
 
-Iris is the service that simplifies financial tasks.
-I'm developing it for personal needs, so it is rather simple. The service does not even have any security now. It's more an example project to work with hexagonal architecture.
+Iris is the serviceProvider that simplifies financial tasks.
+I'm developing it for personal needs, so it is rather simple. The serviceProvider does not even have any security now. It's more an example project to work with hexagonal architecture.
 
 ## Features
 ### Implemented
 * Settle Balances - check balances of the banking account and the balance in the accounting system. Display both balances and show whether those are equal.
 
 ### Planned
-* Remind of Unsettled Balance - the service performs balance checks on schedule and notifies user if there is misbalance.
+* Remind of Unsettled Balance - the serviceProvider performs balance checks on schedule and notifies user if there is misbalance.
 * Manage Periodic Payments - manage a list of subscriptions and periodic payments. It helps to plan a monthly budget.
 * Calculate Taxes - prepare numbers for a tax declaration for the last quarter.
 
@@ -28,7 +28,7 @@ I'm developing it for personal needs, so it is rather simple. The service does n
 It is possible to retrieve banking accounts and balances from the [Monobank](https://monobank.ua).
 
 ### Homemoney
-The [Homemoney](https://homemoney.ua) is a personal accounting service. 
+The [Homemoney](https://homemoney.ua) is a personal accounting serviceProvider. 
 Iris can retrieve accounts and balances from the Homemoney.
 
 To enable integration first you need to retrieve a token from the [Homemoney API](https://homemoney.ua/api/).
