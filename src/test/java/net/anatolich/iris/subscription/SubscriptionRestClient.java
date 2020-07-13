@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-@Component
 public class SubscriptionRestClient {
 
     private final MockMvc mockMvc;
