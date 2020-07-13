@@ -13,10 +13,12 @@ class SubscriptionTest {
     @Test
     @DisplayName("check invariants on creation")
     void createNewSubscription() {
+        final Money rate = Money.of(100, "UAH");
+        final ServiceProvider serviceProvider = new ServiceProvider("Dropbox", null, null);
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> Subscription.forNewService(null, Money.of(100, "UAH")));
+            .isThrownBy(() -> Subscription.forNewService(null, rate));
 
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> Subscription.forNewService(new ServiceProvider("Dropbox", null, null), null));
+            .isThrownBy(() -> Subscription.forNewService(serviceProvider, null));
     }
 }
