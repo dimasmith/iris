@@ -2,6 +2,7 @@ package net.anatolich.iris.subscription.infra.rest;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import net.anatolich.iris.subscription.app.MonthlyChargesDto;
 import net.anatolich.iris.subscription.app.SubscriptionsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -35,5 +36,10 @@ public class SubscriptionRestController {
     @GetMapping
     public List<SubscriptionDto> listSubscriptions() {
         return service.listSubscriptions();
+    }
+
+    @GetMapping(path = "/charges")
+    public MonthlyChargesDto calculateCharges() {
+        return service.calculateCharges();
     }
 }

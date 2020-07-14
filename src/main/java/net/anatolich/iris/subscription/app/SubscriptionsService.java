@@ -35,4 +35,17 @@ public class SubscriptionsService {
             .map(SubscriptionDto::from)
             .collect(Collectors.toList());
     }
+
+    /**
+     * Calculate charges for subscribed services.
+     */
+    @Transactional(readOnly = true)
+    public MonthlyChargesDto calculateCharges() {
+        final List<Subscription> subscriptions = repository.findAll();
+        final Money totalRate = subscriptions.stream()
+            .map(Subscription::getRate)
+            .reduce(Money::add)
+            .orElse(Money.of(0.0, "UAH"));
+        return new MonthlyChargesDto(totalRate);
+    }
 }
