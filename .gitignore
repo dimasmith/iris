@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Structurizr ###
+arch-docs/workspace.json
+arch-docs/.structurizr/
