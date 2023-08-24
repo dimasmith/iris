@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import net.anatolich.iris.subscription.infra.rest.SubscriptionDto;
 import net.anatolich.iris.subscription.infra.rest.SubscriptionDto.ServiceDto;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @AutoConfigureJson
 @DisplayName("manage subscriptions")
+@Disabled("waiting for testcontainers")
 class ManageSubscriptionsTest {
 
     @Autowired
