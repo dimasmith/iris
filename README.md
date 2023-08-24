@@ -72,3 +72,18 @@ iris:
     token: 9cffe052-09f2-47ee-9361-dd640fe96a89
     task-id: 123456
 ``` 
+
+## Working with the project
+
+### Viewing architecture documents
+
+The project contains architecture description in a `structurizr` format.
+Use the [Structurizr Lite](https://structurizr.com/help/lite) to view the documentation.
+
+The easiest way is to use the docker container for Structurizr Lite.
+
+```shell
+docker run -it --rm -p 8888:8080 -v "$(pwd)/arch-docs:/usr/local/structurizr" structurizr/lite
+```
+
+Open the structurizr ui on [http://localhost:8888](http://localhost:8888)
