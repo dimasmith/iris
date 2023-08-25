@@ -1,5 +1,6 @@
 package net.anatolich.iris.infra.monobank;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import net.anatolich.iris.domain.settlement.Bank;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import javax.cache.CacheManager;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;

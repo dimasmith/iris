@@ -1,15 +1,13 @@
 package net.anatolich.iris.subscription.domain;
 
 import io.hypersistence.utils.hibernate.type.money.MonetaryAmountType;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.CompositeType;
 import org.javamoney.moneta.Money;
-
-import javax.persistence.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -21,7 +19,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "subscription")
-@TypeDef(typeClass = MonetaryAmountType.class, defaultForType = Money.class)
 public class Subscription {
 
     @Id
@@ -30,10 +27,9 @@ public class Subscription {
     private Long id;
     private ServiceProvider serviceProvider;
 
-    @Columns(columns = {
-        @Column(name = "rate_amount", precision = 2),
-        @Column(name = "rate_currency")
-    })
+    @AttributeOverride(name = "amount", column = @Column(name = "rate_amount", precision = 2))
+    @AttributeOverride(name = "currency", column = @Column(name = "rate_currency"))
+    @CompositeType(MonetaryAmountType.class)
     private Money rate;
 
     private Subscription(ServiceProvider serviceProvider, Money rate) {
