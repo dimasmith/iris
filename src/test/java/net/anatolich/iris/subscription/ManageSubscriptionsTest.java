@@ -1,6 +1,7 @@
 package net.anatolich.iris.subscription;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.anatolich.iris.ContainersConfiguration;
 import net.anatolich.iris.subscription.infra.rest.SubscriptionDto;
 import net.anatolich.iris.subscription.infra.rest.SubscriptionDto.ServiceDto;
 import org.javamoney.moneta.Money;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJson
 @DisplayName("manage subscriptions")
-@ActiveProfiles(profiles = "it")
+@Import(ContainersConfiguration.class)
 class ManageSubscriptionsTest {
 
     @Autowired
