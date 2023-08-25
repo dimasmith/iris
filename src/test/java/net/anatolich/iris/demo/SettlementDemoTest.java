@@ -1,5 +1,6 @@
 package net.anatolich.iris.demo;
 
+import net.anatolich.iris.ContainersConfiguration;
 import net.anatolich.iris.domain.settlement.AccountingAccount;
 import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.SettlementCheck;
@@ -8,10 +9,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.Import;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "it")
+@Import(ContainersConfiguration.class)
 class SettlementDemoTest {
 
     @Autowired
