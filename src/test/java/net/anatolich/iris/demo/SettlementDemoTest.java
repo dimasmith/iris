@@ -34,4 +34,3 @@ class SettlementDemoTest {
                 .isEqualTo(bankAccount.getBalance());
     }
 }
-

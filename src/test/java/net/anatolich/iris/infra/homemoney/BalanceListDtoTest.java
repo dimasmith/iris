@@ -54,13 +54,15 @@ class BalanceListDtoTest {
     @Test
     void rejectUnsupportedAccountIdFormat() {
         final BalanceListDto balanceListDto = exampleBalanceList();
+        AccountingAccount.Id accountWithInvalidSeparator = new AccountingAccount.Id("account-id.currency_id");
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("correct account id must split account number and currency code via /")
-                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccount.Id("account-id.currency_id"), currencyResolver));
+                .isThrownBy(() -> balanceListDto.getAccount(accountWithInvalidSeparator, currencyResolver));
 
+        AccountingAccount.Id malformatedAccount = new AccountingAccount.Id("account-id/currency_id/");
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("correct account id must have only one /")
-                .isThrownBy(() -> balanceListDto.getAccount(new AccountingAccount.Id("account-id/currency_id/"), currencyResolver));
+                .isThrownBy(() -> balanceListDto.getAccount(malformatedAccount, currencyResolver));
 
     }
 
