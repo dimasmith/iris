@@ -1,17 +1,17 @@
 package net.anatolich.iris.demo;
 
 import net.anatolich.iris.domain.settlement.AccountingAccount;
-import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.BankAccount;
+import net.anatolich.iris.domain.settlement.SettlementCheck;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@Disabled("waiting for testcontainers")
+@ActiveProfiles(profiles = "it")
 class SettlementDemoTest {
 
     @Autowired
