@@ -5,14 +5,12 @@ import net.anatolich.iris.domain.settlement.AccountingAccount;
 import net.anatolich.iris.domain.settlement.SettlementService;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -23,7 +21,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = AccountingController.class)
 @Import(MoneyConfiguration.class)
 class AccountingControllerTest {

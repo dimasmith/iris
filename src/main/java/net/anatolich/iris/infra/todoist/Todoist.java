@@ -1,9 +1,10 @@
 package net.anatolich.iris.infra.todoist;
 
+import org.javamoney.moneta.Money;
+
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;
-import org.javamoney.moneta.Money;
 
 public class Todoist {
 
@@ -19,7 +20,7 @@ public class Todoist {
 
     public void reopenSettleTask(Money balance) {
         client.reopenTask(properties.getTaskId());
-        final String taskContent = String.format("Settle my balance. Difference is %s", balance.toString());
+        final String taskContent = "Settle my balance. Difference is %s".formatted(balance.toString());
         client.updateTask(taskContent, LocalDate.now(clock), properties.getTaskId());
     }
 

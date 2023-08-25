@@ -1,5 +1,6 @@
 package net.anatolich.iris.infra.homemoney;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -7,7 +8,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import javax.cache.CacheManager;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;

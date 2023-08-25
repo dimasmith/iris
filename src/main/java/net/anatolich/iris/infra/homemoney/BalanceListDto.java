@@ -55,7 +55,7 @@ class BalanceListDto {
         }
 
         private AccountingAccount.Id toAccountingId() {
-            return new AccountingAccount.Id(String.format("%s/%s", accountId, currencyId));
+            return new AccountingAccount.Id("%s/%s".formatted(accountId, currencyId));
         }
 
         boolean matches(AccountInfo accountInfo) {
