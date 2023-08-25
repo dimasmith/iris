@@ -3,7 +3,7 @@ services:
   database:
     image: library/mariadb:10.8-focal
     ports:
-    - 3306:3306
+    - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: s3cr3t
       MYSQL_USER: iris
