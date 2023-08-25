@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Currency;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log
 @RestController
@@ -29,7 +28,7 @@ public class AccountingController {
         List<AccountingAccount> accounts = settlements.listAvailableAccountingAccounts();
         return accounts.stream()
                 .map(AccountDto::fromAccount)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Value

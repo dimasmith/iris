@@ -16,7 +16,7 @@ class TodoistClient {
 
     private static final String API_HOST = "https://api.todoist.com/rest/v1/";
     private final RestTemplate restTemplate;
-    private HttpHeaders authorizationHeaders;
+    private final HttpHeaders authorizationHeaders;
 
     public TodoistClient(RestTemplate restTemplate, TodoistProperties properties) {
         this.restTemplate = restTemplate;

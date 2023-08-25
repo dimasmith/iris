@@ -5,14 +5,16 @@ import net.anatolich.iris.domain.settlement.BankAccount;
 import net.anatolich.iris.domain.settlement.IncorrectBankAccountException;
 import org.javamoney.moneta.Money;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DemoBank implements Bank {
 
-    private Map<BankAccount.Id, BankAccount> accountsById;
-    private List<BankAccount> bankAccounts;
+    private final Map<BankAccount.Id, BankAccount> accountsById;
+    private final List<BankAccount> bankAccounts;
 
     DemoBank() {
         this.bankAccounts = List.of(

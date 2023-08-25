@@ -7,7 +7,7 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import java.util.Optional;
 
-class CurrenciesByNumericCodes {
+final class CurrenciesByNumericCodes {
 
     private CurrenciesByNumericCodes() {
         throw new UnsupportedOperationException("utility class must not be instantiated");

@@ -16,7 +16,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 class MonobankApiClientTest {
 
-    private RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
+    private final RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
     private RestTemplate restTemplate;
     private MockRestServiceServer mockServer;
 

@@ -95,8 +95,9 @@ class MonobankTest {
                 .build();
         Mockito.when(apiClient.getClientInfo()).thenReturn(clientInfo);
 
+        BankAccount.Id bankAccountId = BankAccount.Id.random();
         Assertions.assertThatExceptionOfType(IncorrectBankAccountException.class)
-                .isThrownBy(() -> monobank.getAccountBalance(BankAccount.Id.random()));
+                .isThrownBy(() -> monobank.getAccountBalance(bankAccountId));
     }
 
 }

@@ -16,9 +16,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,8 +43,8 @@ class TodoistTest {
         todoist.reopenSettleTask(balance);
 
         verify(apiClient).updateTask(messageCaptor.capture(), any(LocalDate.class), eq(properties.getTaskId()));
-        verify(apiClient).reopenTask(eq(properties.getTaskId()));
-        verify(apiClient).closeTask(eq(properties.getTaskId()));
+        verify(apiClient).reopenTask(properties.getTaskId());
+        verify(apiClient).closeTask(properties.getTaskId());
 
         Assertions.assertThat(messageCaptor.getValue())
             .as("message must describe the task and contain an amount")

@@ -11,7 +11,6 @@ import javax.money.CurrencyUnit;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data
@@ -28,7 +27,7 @@ class BalanceListDto {
         return groupInfo.stream()
                 .flatMap(GroupInfo::accounts)
                 .flatMap(accountInfo -> accountInfo.toAccounts(currencyResolver).stream())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Value
@@ -126,7 +125,7 @@ class BalanceListDto {
         private List<AccountingAccount> toAccounts(CurrencyResolver resolver) {
             return currencyInfo.stream()
                     .map(info -> toAccount(info, resolver))
-                    .collect(Collectors.toList());
+                    .toList();
 
         }
 
