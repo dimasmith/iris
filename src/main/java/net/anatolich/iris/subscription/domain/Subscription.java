@@ -1,21 +1,17 @@
 package net.anatolich.iris.subscription.domain;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import io.hypersistence.utils.hibernate.type.money.MonetaryAmountType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.javamoney.moneta.Money;
+
+import javax.persistence.*;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * A periodic subscription to a certain online service.
@@ -25,6 +21,7 @@ import org.javamoney.moneta.Money;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "subscription")
+@TypeDef(typeClass = MonetaryAmountType.class, defaultForType = Money.class)
 public class Subscription {
 
     @Id
@@ -32,11 +29,11 @@ public class Subscription {
     @SequenceGenerator(name = "sequence-generator", sequenceName = "id_sequence", allocationSize = 1)
     private Long id;
     private ServiceProvider serviceProvider;
+
     @Columns(columns = {
-        @Column(name = "rate_currency"),
-        @Column(name = "rate_amount", precision = 2)
+        @Column(name = "rate_amount", precision = 2),
+        @Column(name = "rate_currency")
     })
-    @Type(type = "org.jadira.usertype.moneyandcurrency.moneta.PersistentMoneyAmountAndCurrency")
     private Money rate;
 
     private Subscription(ServiceProvider serviceProvider, Money rate) {
