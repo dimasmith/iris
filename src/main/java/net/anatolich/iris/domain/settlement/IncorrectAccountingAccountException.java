@@ -1,5 +1,8 @@
 package net.anatolich.iris.domain.settlement;
 
+import lombok.Getter;
+
+@Getter
 public class IncorrectAccountingAccountException extends RuntimeException {
     private final AccountingAccount.Id accountId;
 
@@ -8,7 +11,4 @@ public class IncorrectAccountingAccountException extends RuntimeException {
         this.accountId = accountId;
     }
 
-    public AccountingAccount.Id getAccountId() {
-        return accountId;
-    }
 }
