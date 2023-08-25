@@ -1,14 +1,13 @@
 package net.anatolich.iris.subscription;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.anatolich.iris.subscription.infra.rest.SubscriptionDto;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 public class SubscriptionRestClient {
 
@@ -29,6 +28,11 @@ public class SubscriptionRestClient {
 
     public ResultActions listSubscriptions() throws Exception {
         return mockMvc.perform(get("/v1/subscriptions")
+            .accept(MediaType.APPLICATION_JSON));
+    }
+
+    public ResultActions calculateCharges() throws Exception {
+        return mockMvc.perform(get("/v1/subscriptions/charges")
             .accept(MediaType.APPLICATION_JSON));
     }
 }
