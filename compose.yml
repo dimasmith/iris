@@ -1,11 +1,10 @@
 version: '3.8'
 services:
   database:
-    image: library/mariadb:10.8-focal
+    image: library/postgres:15-alpine
     ports:
-    - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: s3cr3t
-      MYSQL_USER: iris
-      MYSQL_PASSWORD: s3cr3t
-      MYSQL_DATABASE: iris
+      POSTGRES_USER: iris
+      POSTGRES_PASSWORD: s3cr3t
+      POSTGRES_DB: iris
