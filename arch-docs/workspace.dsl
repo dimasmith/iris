@@ -89,7 +89,7 @@ workspace {
 
             irisDatabase = container "Iris Database" {
                 description "Stores data locally. Reduces amount of requests to external systems"
-                technology "MariaDB"
+                technology "Postgres"
             }
 
             irisFace -> irisService "Retrieves data from" "REST/HTTPS"
