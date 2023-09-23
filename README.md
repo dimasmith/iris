@@ -1,8 +1,7 @@
 Iris
 ====
 
-![](https://github.com/dimasmith/iris/workflows/CI/badge.svg)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dimasmith_iris&metric=alert_status)](https://sonarcloud.io/dashboard?id=dimasmith_iris)
+[![Build Status](https://sonarcloud.io/api/project_badges/measure?project=dimasmith_iris&metric=alert_status)](https://sonarcloud.io/dashboard?id=dimasmith_iris)
 
 Iris is the service that simplifies financial tasks.
 I'm developing it for personal needs, so it is rather simple. The service does not even have any security now. It's more an example project to work with hexagonal architecture.
