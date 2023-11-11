@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   database:
-    image: library/postgres:15-alpine
+    image: library/postgres:16-alpine
     ports:
       - "5432:5432"
     environment:
