@@ -9,7 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CompositeType;
 import org.javamoney.moneta.Money;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static net.anatolich.iris.util.Arguments.rejectNull;
 
 /**
  * A periodic subscription to a certain online service.
@@ -33,10 +33,8 @@ public final class Subscription {
     private Money rate;
 
     private Subscription(ServiceProvider serviceProvider, Money rate) {
-        checkArgument(serviceProvider != null, "service must not be null");
-        checkArgument(rate != null, "subscription rate must not be null");
-        this.serviceProvider = serviceProvider;
-        this.rate = rate;
+        this.serviceProvider = rejectNull(serviceProvider, "service must not be null");
+        this.rate = rejectNull(rate, "subscription rate must not be null");
     }
 
     public static Subscription forNewService(ServiceProvider serviceProvider, Money rate) {

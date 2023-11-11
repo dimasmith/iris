@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static net.anatolich.iris.util.Arguments.rejectEmptyString;
 
 /**
  * Value object to hold details on subscribed online service
@@ -25,8 +24,7 @@ public class ServiceProvider {
     private String description;
 
     public ServiceProvider(String name, String url, String description) {
-        checkArgument(!isNullOrEmpty(name), "service name must not be empty");
-        this.name = name;
+        this.name = rejectEmptyString(name, "service name must not be empty");
         this.url = url;
         this.description = description;
     }
