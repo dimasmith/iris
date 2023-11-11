@@ -27,6 +27,7 @@ public class Arguments {
         return assertArgument(argument, Objects::nonNull, message);
     }
 
+    @SuppressWarnings("javabugs:S6416")
     public static String rejectEmptyString(String argument, String message) {
         return assertArgument(argument, argument != null && !argument.isBlank(), message);
     }
