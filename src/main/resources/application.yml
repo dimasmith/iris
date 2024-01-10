@@ -3,6 +3,9 @@ spring:
     open-in-view: false
   cache:
     type: jcache
+  threads:
+    virtual:
+      enabled: true
 
 iris:
   banking: demo
