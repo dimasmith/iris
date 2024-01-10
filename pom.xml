@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.anatolich</groupId>
@@ -68,8 +68,8 @@
 
         <dependency>
             <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-60</artifactId>
-            <version>3.6.0</version>
+            <artifactId>hypersistence-utils-hibernate-62</artifactId>
+            <version>3.6.1</version>
         </dependency>
 
         <dependency>
