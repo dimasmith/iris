@@ -1,0 +1,28 @@
+{
+  "name": "SpringBootDev",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/java:1": {
+      "installMaven": true,
+      "jdkDistro": "tem",
+      "version": "21.0.2"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "forwardPorts": [8080],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+        "redhat.java",
+        "redhat.fabric8-analytics",
+        "redhat.vscode-xml",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-java-debug",
+        "SonarSource.sonarlint-vscode"
+      ]
+		}
+	}
+}
