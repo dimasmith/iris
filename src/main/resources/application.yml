@@ -13,3 +13,18 @@ iris:
   settlement:
     accounting-account-id: fe6f6e10-ef51-4f17-8654-72d6b3d7c695
     bank-account-id: bc093edb-9e00-41a4-be31-7b6db4fdcb00
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info
+
+info:
+  application:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
