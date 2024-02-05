@@ -21,7 +21,8 @@
         "redhat.vscode-xml",
         "vscjava.vscode-java-pack",
         "vscjava.vscode-java-debug",
-        "SonarSource.sonarlint-vscode"
+        "SonarSource.sonarlint-vscode",
+        "GitHub.vscode-github-actions"
       ]
 		}
 	}
