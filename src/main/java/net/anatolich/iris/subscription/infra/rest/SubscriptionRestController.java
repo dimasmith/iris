@@ -2,8 +2,9 @@ package net.anatolich.iris.subscription.infra.rest;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import net.anatolich.iris.subscription.app.MonthlyChargesDto;
-import net.anatolich.iris.subscription.app.SubscriptionsService;
+import net.anatolich.iris.subscription.MonthlyChargesDto;
+import net.anatolich.iris.subscription.SubscriptionsService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,16 +27,18 @@ public class SubscriptionRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void subscribe(@Validated @RequestBody SubscriptionDto subscribeCommand) {
+    public void subscribe(@Validated @RequestBody SubscriptionPayload subscribeCommand) {
         log.debug("got request to subscribe to service {}", subscribeCommand);
         service.subscribe(
-            subscribeCommand.getService().toServiceProvider(),
-            subscribeCommand.getRate());
+                subscribeCommand.getService().toServiceData(),
+                subscribeCommand.getRate());
     }
 
     @GetMapping
-    public List<SubscriptionDto> listSubscriptions() {
-        return service.listSubscriptions();
+    public List<SubscriptionPayload> listSubscriptions() {
+        return service.listSubscriptions().stream()
+                .map(SubscriptionPayload::from)
+                .toList();
     }
 
     @GetMapping(path = "/charges")

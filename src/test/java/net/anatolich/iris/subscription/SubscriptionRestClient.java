@@ -1,7 +1,7 @@
 package net.anatolich.iris.subscription;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.anatolich.iris.subscription.infra.rest.SubscriptionDto;
+import net.anatolich.iris.subscription.infra.rest.SubscriptionPayload;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -19,7 +19,7 @@ public class SubscriptionRestClient {
         this.json = json;
     }
 
-    public ResultActions subscribe(SubscriptionDto subscriptionCommand) throws Exception {
+    public ResultActions subscribe(SubscriptionPayload subscriptionCommand) throws Exception {
         return mockMvc.perform(post("/v1/subscriptions")
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)

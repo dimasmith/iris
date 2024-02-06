@@ -3,8 +3,8 @@ package net.anatolich.iris.subscription;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.anatolich.iris.ContainersConfiguration;
 import net.anatolich.iris.subscription.domain.SubscriptionRepository;
-import net.anatolich.iris.subscription.infra.rest.SubscriptionDto;
-import net.anatolich.iris.subscription.infra.rest.SubscriptionDto.ServiceDto;
+import net.anatolich.iris.subscription.infra.rest.SubscriptionPayload;
+import net.anatolich.iris.subscription.infra.rest.SubscriptionPayload.ServiceDto;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +53,7 @@ class ManageSubscriptionsTest {
             .description("file synchronization service")
             .build();
         final Money rate = Money.of(BigDecimal.valueOf(11.99), "USD");
-        final SubscriptionDto command = SubscriptionDto.builder()
+        final SubscriptionPayload command = SubscriptionPayload.builder()
             .service(service)
             .rate(rate)
             .build();
@@ -79,7 +79,7 @@ class ManageSubscriptionsTest {
             .description("file synchronization service")
             .build();
         final Money rate = Money.of(11.99, "UAH");
-        final SubscriptionDto command = SubscriptionDto.builder()
+        final SubscriptionPayload command = SubscriptionPayload.builder()
             .service(service)
             .rate(rate)
             .build();
@@ -107,12 +107,12 @@ class ManageSubscriptionsTest {
             .description("music streaming")
             .build();
 
-        List<SubscriptionDto> commands = List.of(
-            SubscriptionDto.builder().service(service).rate(Money.of(15.0, "UAH")).build(),
-            SubscriptionDto.builder().service(otherService).rate(Money.of(27.0, "UAH")).build()
+        List<SubscriptionPayload> commands = List.of(
+            SubscriptionPayload.builder().service(service).rate(Money.of(15.0, "UAH")).build(),
+            SubscriptionPayload.builder().service(otherService).rate(Money.of(27.0, "UAH")).build()
         );
 
-        for (SubscriptionDto command : commands) {
+        for (SubscriptionPayload command : commands) {
             restClient.subscribe(command).andExpect(status().isCreated());
         }
 

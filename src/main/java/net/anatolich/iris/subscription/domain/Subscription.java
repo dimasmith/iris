@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.anatolich.iris.subscription.ServiceData;
+import net.anatolich.iris.subscription.SubscriptionData;
+
 import org.hibernate.annotations.CompositeType;
 import org.javamoney.moneta.Money;
 
@@ -32,12 +35,17 @@ public final class Subscription {
     @CompositeType(MonetaryAmountType.class)
     private Money rate;
 
-    private Subscription(ServiceProvider serviceProvider, Money rate) {
-        this.serviceProvider = rejectNull(serviceProvider, "service must not be null");
+    private Subscription(ServiceData serviceProvider, Money rate) {
+        ServiceData service = rejectNull(serviceProvider, "service must not be null");        
         this.rate = rejectNull(rate, "subscription rate must not be null");
+        this.serviceProvider = ServiceProvider.from(service);
     }
 
-    public static Subscription forNewService(ServiceProvider serviceProvider, Money rate) {
+    public static Subscription forNewService(ServiceData serviceProvider, Money rate) {
         return new Subscription(serviceProvider, rate);
+    }
+
+    public SubscriptionData asData() {        
+        return new SubscriptionData(serviceProvider.asData(), rate);
     }
 }

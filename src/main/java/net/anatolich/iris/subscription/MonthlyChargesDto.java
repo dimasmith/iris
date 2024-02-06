@@ -1,4 +1,4 @@
-package net.anatolich.iris.subscription.app;
+package net.anatolich.iris.subscription;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

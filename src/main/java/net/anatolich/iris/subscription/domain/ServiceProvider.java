@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.anatolich.iris.subscription.ServiceData;
 
 import static net.anatolich.iris.util.Arguments.rejectEmptyString;
 
@@ -27,5 +28,13 @@ public class ServiceProvider {
         this.name = rejectEmptyString(name, "service name must not be empty");
         this.url = url;
         this.description = description;
+    }
+
+    public ServiceData asData() {
+        return new ServiceData(name, url, description);
+    }
+
+    static ServiceProvider from(ServiceData serviceData) {
+        return new ServiceProvider(serviceData.name(), serviceData.url(), serviceData.description());
     }
 }
